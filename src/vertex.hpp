@@ -49,4 +49,4 @@ public:
 #endif
 };
 
-#endif __VERTEX_HPP__
+#endif /*__VERTEX_HPP__*/

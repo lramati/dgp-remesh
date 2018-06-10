@@ -32,15 +32,15 @@ int main (int argc, char const* argv[])
     if (n_iters.getValue() == 0) {
         mesh.save(output_fname.getValue());
 #ifndef NDEBUG
-        std::cout << "WARNING: iterations=0! copying input file to output destination" std::endl;
+        std::cout << "WARNING: iterations=0! copying input file to output destination" << std::endl;
 #endif
         return 0;
     }
     
     mesh.remesh();
-    for (size_t iter=1; i<n_iters.getValue(); ++iter) {
+    for (size_t iter=1; iter<n_iters.getValue(); ++iter) {
         if (intermediates.getValue() && (iter%intermediates.getValue()) == 0)
-            mesh.save(output_fname.getValue() + "." + std::to_string(iter+1);
+            mesh.save(output_fname.getValue() + "." + std::to_string(iter+1));
         mesh.remesh();
     }
     

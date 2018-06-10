@@ -12,6 +12,6 @@ public:
     void remesh() {}
     void mark_bounds(std::string bounds_fname) {}
     void save(std::string out_fname) {}
-}
+};
 
-#endif __TRIMESH_HPP__
+#endif /*__TRIMESH_HPP__*/
