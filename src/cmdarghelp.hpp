@@ -1,11 +1,13 @@
 #ifndef __CMDARGHELP_H__
 #define __CMDARGHELP_H__
 
+#include "types.hpp"
+#include "tclap/CmdLine.h"
 #include <string>
-#ifdef NO_CXX17
-#   include <fstream>
+#ifdef NO_FS
+#include <fstream>
 #else
-#   include <filesystem>
+#include FS_INC /* set to <[experimental/]filesystem> as needed in types.hpp */
 #endif
 
 #ifndef DGP_FORCE_COLINEAR
@@ -29,10 +31,13 @@ public:
         else desc = "path to existing " + extension + " file";
     }
     virtual bool check(const std::string& value) const override {
-#ifdef NO_CXX17
+#ifdef NO_FS
+#   ifndef NDEBUG
+        std::cerr << "Warning: Using ifstream instead of filesystem to check file existence" << std::endl;
+#   endif
         return !std::ifstream(value).fail();
 #else
-        return std::exists(std::path(value));
+        return FS_NS::exists(FS_NS::path(value));
 #endif
     }
     virtual std::string description() const override {
@@ -43,3 +48,4 @@ public:
     }
 };
 
+#endif /* __CMDARGHELP_H__ */

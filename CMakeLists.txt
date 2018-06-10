@@ -1,13 +1,14 @@
 project(dgp-remesh)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
-#set(CMAKE_VERBOSE_MAKEFILE on)
+set(CMAKE_VERBOSE_MAKEFILE on)
 
 include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++17" COMPILER_SUPPORTS_CXX17)
 CHECK_CXX_COMPILER_FLAG("-std=c++14" COMPILER_SUPPORTS_CXX14)
 if (COMPILER_SUPPORTS_CXX17)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+    set(DEPENDENCIES stdc++fs)
 elseif(COMPILER_SUPPORTS_CXX14)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
     message(WARNING "Falling back to c++14")
@@ -35,7 +36,8 @@ endif()
 
 set(DGP_CPP
     src/dgp-remesh.cpp
-    src/trimesh.cpp)
+    src/trimesh.cpp
+    src/vertex.cpp)
 
 set(DGP_HPP
     src/vertex.hpp
@@ -44,4 +46,5 @@ set(DGP_HPP
     src/types.hpp)
 
 add_executable(dgp-remesh ${DGP_CPP} ${DGP_HPP})
+target_link_libraries(dgp-remesh ${DEPENDENCIES})
 include_directories(third-party)

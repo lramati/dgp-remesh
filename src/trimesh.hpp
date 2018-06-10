@@ -3,20 +3,17 @@
 
 #include "types.hpp"
 #include "vertex.hpp"
-#include <multiset>
+#include <set>
 
-
+struct EdgePriCmp { bool operator()(const Edge& lhs, const Edge& rhs) const
+        { return lhs.getLength() < rhs.getLength(); } };
 class TMesh {
 private:
     float target_length;
     DGP_VERT_CON vertices;
+    
     std::multiset<Edge, EdgePriCmp> edges;
     
-    struct EdgePriCmp {
-        bool operator()(const Edge& lhs, const Edge& rhs) const {
-            return lhs.getLength() < rhs.getLength();
-        }
-    } 
 public:
     TMesh(std::string in_fname);
 

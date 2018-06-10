@@ -14,7 +14,7 @@ int main (int argc, char const* argv[])
     TCLAP::CmdLine cmd("dgp project: Remeshing tool", ' ');
     FileExistsConstraint off_exists("off");
     TCLAP::ValueArg<std::string> input_fname("i", "input", "Path to input mesh", true,
-                                             "", &exists, cmd);
+                                             "", &off_exists, cmd);
     TCLAP::ValueArg<std::string> output_fname("o", "output", "Path for output(s)", false,
                                               "./out.off", "off-file", cmd);
     FileExistsConstraint boundary_exists("boundary");
@@ -26,7 +26,7 @@ int main (int argc, char const* argv[])
                                           false, 0, "N", cmd);
 #ifndef DGP_FORCE_COLINEAR
     NonNegConstraint non_neg;
-    TCLAP::ValueArg<DGP_FP> colinearity("", "colinearity", "How much edges are allowed to deviate from colinearity and still be joined (default: " str(DEFAULT_COLINEARITY) ")",
+    TCLAP::ValueArg<DGP_FP> colinearity("", "colinearity", "How much edges are allowed to deviate from colinearity and still be joined (default: " TOSTR(DEFAULT_COLINEARITY) ")",
                                        false, DEFAULT_COLINEARITY, &non_neg, cmd);
 #endif
     cmd.parse(argc, argv);
