@@ -16,10 +16,10 @@ int main (int argc, char const* argv[])
                                               "./out.off", "off-file");
     TCLAP::ValueArg<std::string> boundary_fname("b", "boundary", "Path to file defining boundary edges as indexed in input file, one per line",
                                                 false, "", "boundaries-file");
-    TCLAP::ValueArg<size_t> n_iters("n", "iterations", "Number of iterations (default 20)",
-                                    false, 20, "integer");
+    TCLAP::ValueArg<size_t> n_iters("n", "iterations", "Number of iterations (default: 20)",
+                                    false, 20, "N");
     TCLAP::ValueArg<size_t> intermediates("", "intermediates", "How often to output intermediate meshes (default: don't)",
-                                          false, 0, "integer");
+                                          false, 0, "N");
     cmd.add(input_fname);
     cmd.add(output_fname);
     cmd.add(boundary_fname);
