@@ -1,3 +1,6 @@
+#ifndef __VERTEX_HPP__
+#define __VERTEX_HPP__
+
 #include <cassert>
 #ifndef DGP_NO_ARRAYS
 #include <array>
@@ -45,3 +48,5 @@ public:
     Edge(std::array<Vertex*, 2> vs) : Edge(vs[0], vs[1]) {}
 #endif
 };
+
+#endif __VERTEX_HPP__

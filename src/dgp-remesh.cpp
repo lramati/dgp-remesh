@@ -1,6 +1,11 @@
 #include "vertex.hpp"
 #include "trimesh.hpp"
 #include "tclap/CmdLine.h"
+#include <string>
+
+#ifndef NDEBUG
+#   include <iostream>
+#endif
 
 int main (int argc, char const* argv[])
 {
