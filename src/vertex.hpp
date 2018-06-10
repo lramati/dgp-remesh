@@ -6,11 +6,7 @@
 #include <array>
 #endif
 
-#ifdef DGP_USE_DOUBLE
-#define DGP_FP double
-#else
-#define DGP_FP float
-#endif
+#include "types.hpp"
 
 class Vertex {
 public:
@@ -34,6 +30,7 @@ public:
         }
     }
 #endif
+    friend istream& operator>>(istream& is, Vertex& v);
     
     /* Array Interface */
 #ifndef DGP_NO_ARRAYS
@@ -41,18 +38,22 @@ public:
 #endif
 };
 
+istream& operator>>(istream& is, Vertex& v) {
+    return (istream >> v.x >> v.y >> v.z);
+}
+
 class Edge {
 public:
     /* Members */
-    Vertex *v1, *v2;
+    DGP_VERT_ITR v1, v2;
     
     /* Constructors */
-    Edge(Vertex *v1_, Vertex *v2_) : v1(v1_), v2(v1_) {}
-    Edge() : Edge(nullptr, nullptr) {}
+    Edge(DGP_VERT_ITR v1_, DGP_VERT_ITR v2_) : v1(v1_), v2(v1_) {}
+    Edge() = default;
     
     /* Array Interface */
 #ifndef DGP_NO_ARRAYS
-    Edge(std::array<Vertex*, 2> vs) : Edge(vs[0], vs[1]) {}
+    Edge(std::array<DGP_VERT_ITR, 2> vs) : Edge(vs[0], vs[1]) {}
 #endif
 };
 
