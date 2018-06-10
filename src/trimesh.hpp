@@ -12,7 +12,14 @@ private:
     float target_length;
     DGP_VERT_CON vertices;
     
+    // Multiset is pretty close to min-max heap, which seems like the most
+    // useful structure for what's being done
     std::multiset<Edge, EdgePriCmp> edges;
+    
+    void split_long_edges();
+    void join_short_edges();
+    void flip_edges();
+    void shift_vertices();
     
 public:
     TMesh(std::string in_fname);

@@ -8,12 +8,12 @@
 #define DGP_FP float
 #endif
 
-// vertex container type
+// vertex container type (Still not sold, want it to be easy to change)
 #include <forward_list>
 #define DGP_VERT_CON std::forward_list<Vertex>
 #define DGP_VERT_ITR DGP_VERT_CON::iterator
 
-// filesystem support
+// filesystem support (for loading/saving meshes
 #ifdef NO_CXX17
 #   define NO_FS
 #else
@@ -28,7 +28,7 @@
 #   endif
 #endif
 
-// constants
+// constants that have yet to be nailed down
 #define TOSTR(s) TOSTRH(s)
 #define TOSTRH(s) #s
 #define DEFAULT_COLINEARITY 0.05
