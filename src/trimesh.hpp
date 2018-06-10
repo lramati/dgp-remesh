@@ -6,10 +6,12 @@
 
 
 class TMesh {
+private:
+    
 public:
     TMesh(std::string in_fname) {}
-    
-    void remesh() {}
+
+    void remesh(float colinear) {}
     void mark_bounds(std::string bounds_fname) {}
     void save(std::string out_fname) {}
 };

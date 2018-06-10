@@ -6,21 +6,28 @@
 #include <array>
 #endif
 
+#ifdef DGP_USE_DOUBLE
+#define DGP_FP double
+#else
+#define DGP_FP float
+#endif
+
 class Vertex {
 public:
     /* Members */
-    float x,y,z;
+    DGP_FP x,y,z;
+    
 
     /* Constructors */
-    Vertex(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
+    Vertex(DGP_FP x_, DGP_FP y_, DGP_FP z_) : x(x_), y(y_), z(z_) {}
     Vertex() : Vertex(0.f,0.f,0.f) {}
     
     /* Utility Accessors */
 #ifndef GDP_STRICT_MEMORY
-    operator float*() { return &x; }
-    float& operator[](size_t index) { assert(index < 3); return *(&x + index); }
+    operator DGP_FP*() { return &x; }
+    DGP_FP& operator[](size_t index) { assert(index < 3); return *(&x + index); }
 #else
-    float& operator[](size_t index) {
+    DGP_FP& operator[](size_t index) {
         switch (index) {
         case 0: return x; case 1: return y; case 2: return z;
         default: throw std::out_of_range("Vertex is a 3-tuple");
@@ -30,7 +37,7 @@ public:
     
     /* Array Interface */
 #ifndef DGP_NO_ARRAYS
-    Vertex(std::array<float, 3> xyz) : Vertex(xyz[0], xyz[1], xyz[2]) {}
+    Vertex(std::array<DGP_FP, 3> xyz) : Vertex(xyz[0], xyz[1], xyz[2]) {}
 #endif
 };
 
