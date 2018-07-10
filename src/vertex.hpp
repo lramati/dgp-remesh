@@ -16,7 +16,7 @@ public:
     Vertex* v1, v2;
     
     /* Constructors */
-    Edge(DGP_VERT_ITR v1_, DGP_VERT_ITR v2_) : v1(v1_), v2(v1_) {}
+    Edge(Vertex* v1_, Vertex* v2_) : v1(v1_), v2(v1_) {}
     Edge() = default;
     
     /* Accessors */
