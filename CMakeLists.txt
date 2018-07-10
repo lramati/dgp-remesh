@@ -29,15 +29,12 @@ option(DGP_USE_DOUBLE "Use doubles instead of floats for floating-point operatio
 if(DGP_USE_DOUBLE)
     add_definitions(-DDGP_USE_DOUBLE)
 endif()
-option(DGP_FORCE_COLINEAR "Only merge short edges if they are exactly colinear" OFF)
-if(DGP_FORCE_COLINEAR)
-    add_definitions(-DDGP_FORCE_COLINEAR)
-endif()
 
 set(DGP_CPP
     src/dgp-remesh.cpp
     src/trimesh.cpp
-    src/vertex.cpp)
+    src/vertex.cpp
+    src/types.cpp)
 
 set(DGP_HPP
     src/vertex.hpp

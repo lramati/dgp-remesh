@@ -31,6 +31,56 @@
 // constants that have yet to be nailed down
 #define TOSTR(s) TOSTRH(s)
 #define TOSTRH(s) #s
-#define DEFAULT_COLINEARITY 0.05
+
+// useful types
+struct Vec2 {
+    /* Members */
+    DGP_FP x,y;
+    
+    /* Constructors */
+    Vec2(DGP_FP x_, DGP_FP y_) : x(x_), y(y_) {}
+    Vec2() : Vec2(0.f,0.f) {}
+    Vec2(const Vec2& rhs) = default;
+    Vec2(Vec2&& rhs) = default;
+    
+    /* Utility Accessors */
+#ifndef GDP_STRICT_MEMORY
+    operator DGP_FP*() { return &x; }
+    operator const DGP_FP*() const { return &x; }
+#endif
+    DGP_FP& operator[](size_t index);
+    const DGP_FP& operator[](size_t index) const;
+    friend std::istream& operator>>(std::istream& is, Vec2& v);
+    
+    /* Array Interface */
+#ifndef DGP_NO_ARRAYS
+    Vec2(std::array<DGP_FP, 2> xyz) : Vec2(xyz[0], xyz[1]) {}
+#endif
+};
+
+struct Vec3 {
+    /* Members */
+    DGP_FP x,y,z;
+    
+    /* Constructors */
+    Vec3(DGP_FP x_, DGP_FP y_, DGP_FP z_) : x(x_), y(y_), z(z_) {}
+    Vec3() : Vec3(0.f,0.f,0.f) {}
+    Vec3(const Vec3& rhs) = default;
+    Vec3(Vec3&& rhs) = default;
+    
+    /* Utility Accessors */
+#ifndef GDP_STRICT_MEMORY
+    operator DGP_FP*() { return &x; }
+    operator const DGP_FP*() const { return &x; }
+#endif
+    DGP_FP& operator[](size_t index);
+    const DGP_FP& operator[](size_t index) const;
+    friend std::istream& operator>>(std::istream& is, Vec3& v);
+    
+    /* Array Interface */
+#ifndef DGP_NO_ARRAYS
+    Vec2(std::array<DGP_FP, 3> xyz) : Vec2(xyz[0], xyz[1], xyz[2]) {}
+#endif
+};
 
 #endif /*__TYPES_H__*/
