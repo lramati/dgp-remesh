@@ -26,7 +26,7 @@ public:
     
     /* Array Interface */
 #ifndef DGP_NO_ARRAYS
-    Edge(std::array<DGP_VERT_ITR, 2> vs) : Edge(vs[0], vs[1]) {}
+    Edge(std::array<Vertex*, 2> vs) : Edge(vs[0], vs[1]) {}
 #endif
 };
 
