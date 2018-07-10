@@ -12,6 +12,8 @@
 #include <forward_list>
 #define DGP_VERT_CON std::forward_list<Vertex>
 #define DGP_VERT_ITR DGP_VERT_CON::iterator
+#define DGP_EDGE_CON std::set<Edge*, EdgeAngleSort>
+#define DGP_EDGE_ITR DGP_EDGE_CON::iterator
 
 // filesystem support (for loading/saving meshes
 #ifdef NO_CXX17

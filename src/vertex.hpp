@@ -14,9 +14,10 @@ class Edge {
 public:
     /* Members */
     Vertex* v1, v2;
+    DGP_EDGE_ITR itr1, itr2;
     
     /* Constructors */
-    Edge(Vertex* v1_, Vertex* v2_) : v1(v1_), v2(v1_) {}
+    Edge(Vertex* v1_, Vertex* v2_);
     Edge() = default;
     
     /* Accessors */
@@ -24,13 +25,16 @@ public:
     Vertex first() { return *v1; }
     Vertex second() { return *v2; }
     
+    /* Manipulators */
+    void reposition();
+    
     /* Array Interface */
 #ifndef DGP_NO_ARRAYS
     Edge(std::array<Vertex*, 2> vs) : Edge(vs[0], vs[1]) {}
 #endif
 };
 
-class EdgeSort {
+class EdgeAngleSort {
 private:
     Vertex* ref;
     
@@ -39,8 +43,8 @@ private:
         else return e.first() - e.second();
     }
 public:
-    EdgeSort(Vertex* reference) : ref(reference) {}
-    EdgeSort() = delete;
+    EdgeAngleSort(Vertex* reference) : ref(reference) {}
+    EdgeAngleSort() = delete;
     
     bool operator()(const Edge*& lhs, const Edge*& rhs);
 };
@@ -48,11 +52,15 @@ public:
 class Vertex : public Vec3 {
 private:
     /* Members */
-    std::set<Edge*, EdgeSort> edges;
+    DGP_EDGE_CON edges;
 public:
     /* Constructors */
-    Vertex(DGP_FP x_, DGP_FP y_, DGP_FP z_) : Vec3(x_, y_, z_), edges(EdgeSort(this)) {}
+    Vertex(DGP_FP x_, DGP_FP y_, DGP_FP z_) : Vec3(x_, y_, z_), edges(EdgeAngleSort(this)) {}
     Vertex() : Vertex(0.f,0.f,0.f) {}
+    
+    /* Manipulators */
+    DGP_EDGE_ITR addEdge(Edge* e);
+    void removeEdge(const DGP_EDGE_ITR& itr);
     
     friend std::istream& operator>>(std::istream& is, Vertex& v);
     
