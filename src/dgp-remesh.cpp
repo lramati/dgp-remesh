@@ -24,18 +24,7 @@ int main (int argc, char const* argv[])
                                     false, 20, "N", cmd);
     TCLAP::ValueArg<size_t> intermediates("", "intermediates", "How often to output intermediate meshes (default: don't)",
                                           false, 0, "N", cmd);
-#ifndef DGP_FORCE_COLINEAR
-    NonNegConstraint non_neg;
-    TCLAP::ValueArg<DGP_FP> colinearity("", "colinearity", "How much edges are allowed to deviate from colinearity and still be joined (default: " TOSTR(DEFAULT_COLINEARITY) ")",
-                                       false, DEFAULT_COLINEARITY, &non_neg, cmd);
-#endif
     cmd.parse(argc, argv);
-
-#ifdef DGP_FORCE_COLINEAR
-    const static DGP_FP colinear_factor = 0;
-#else
-    const static DGP_FP colinear_factor = colinearity.getValue();
-#endif
 
     TMesh mesh(input_fname.getValue());
     if (boundary_fname.isSet()) mesh.mark_bounds(boundary_fname.getValue());
@@ -47,11 +36,11 @@ int main (int argc, char const* argv[])
         return 0;
     }
     
-    mesh.remesh(colinear_factor);
+    mesh.remesh();
     for (size_t iter=1; iter<n_iters.getValue(); ++iter) {
         if (intermediates.getValue() && (iter%intermediates.getValue()) == 0)
             mesh.save(output_fname.getValue() + "." + std::to_string(iter+1));
-        mesh.remesh(colinear_factor);
+        mesh.remesh();
     }
     
     mesh.save(output_fname.getValue());

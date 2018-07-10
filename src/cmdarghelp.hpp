@@ -10,18 +10,6 @@
 #include FS_INC /* set to <[experimental/]filesystem> as needed in types.hpp */
 #endif
 
-#ifndef DGP_FORCE_COLINEAR
-class NonNegConstraint : public TCLAP::Constraint<DGP_FP> {
-public:
-    NonNegConstraint() : Constraint() {}
-    virtual bool check(const DGP_FP& value) const override { return value >= 0; }
-    virtual std::string description() const override 
-        { return "[0, ∞)"; }
-    virtual std::string shortID() const override { return description(); }
-};
-#endif
-
-
 class FileExistsConstraint : public TCLAP::Constraint<std::string> {
 private:
     std::string desc;
