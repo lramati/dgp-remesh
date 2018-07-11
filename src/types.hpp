@@ -12,7 +12,9 @@
 #include <forward_list>
 #define DGP_VERT_CON std::forward_list<Vertex>
 #define DGP_VERT_ITR DGP_VERT_CON::iterator
-#define DGP_EDGE_CON std::set<Edge*, EdgeAngleSort>
+
+#include <set>
+#define DGP_EDGE_CON std::multiset<Edge*, EdgeLenSort>
 #define DGP_EDGE_ITR DGP_EDGE_CON::iterator
 
 // filesystem support (for loading/saving meshes
@@ -77,6 +79,10 @@ struct Vec3 {
 #endif
     DGP_FP& operator[](size_t index);
     const DGP_FP& operator[](size_t index) const;
+    
+    /* Other Operators */
+    Vec3 operator-(const Vec3& rhs) const { return {x-rhs.x,y-rhs.y,z-rhs.z}; }
+    Vec3 operator-() const { return {-x, -y, -z }; };
     friend std::istream& operator>>(std::istream& is, Vec3& v);
     
     /* Array Interface */

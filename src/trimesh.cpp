@@ -4,7 +4,8 @@
 #include <vector>
 #include <tuple>
 
-TMesh::TMesh(std::string in_fname) : target_length(0) {
+TMesh::TMesh(std::string in_fname) : target_length(0)
+{
     // command line arg parser enforces existence of the file.
     std::ifstream file(in_fname);
     if (file.fail()) {
